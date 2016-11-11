@@ -34,7 +34,7 @@ class DataParser {
 	}
 
 	private static int[][] parseNodesTo2DArray(double[] nodes, int size) {
-		double[][] nodesMap = new double[size][size];
+		int[][] nodesMap = new int[size][size];
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				nodesMap[i][j] = getEucDis(nodes[i * 2], nodes[i * 2 + 1], nodes[j * 2], nodes[j * 2 + 1]);
