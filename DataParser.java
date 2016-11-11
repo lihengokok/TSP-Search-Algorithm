@@ -6,7 +6,7 @@ class DataParser {
 	 * @param: String filename "/Data/xxx.tsp"
 	 * @return: double[] 2D-array of double
 	 */
-	public static double[][] parse(String filename) throws FileNotFoundException {
+	public static int[][] parse(String filename) throws FileNotFoundException {
 		// Init file
 		File inputFile = new File(filename);
 		Scanner sc = new Scanner(inputFile);
@@ -33,7 +33,7 @@ class DataParser {
 		return parseNodesTo2DArray(nodeList, size);
 	}
 
-	private static double[][] parseNodesTo2DArray(double[] nodes, int size) {
+	private static int[][] parseNodesTo2DArray(double[] nodes, int size) {
 		double[][] nodesMap = new double[size][size];
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -43,8 +43,8 @@ class DataParser {
 		return nodesMap;
 	}
 
-	private static double getEucDis(double x1, double y1, double x2, double y2) {
-		return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+	private static int getEucDis(double x1, double y1, double x2, double y2) {
+		return (int) Math.round(Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
 	}
 
 	private static int parseDimension(String line) {
