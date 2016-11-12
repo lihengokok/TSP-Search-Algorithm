@@ -1,12 +1,12 @@
-// Parse input data xxx.tsp into a 2D-array of double
+// Parse input data xxx.tsp into a 2D-array of int
 import java.util.Scanner;
 import java.io.*;
 class DataParser {
 	/**
 	 * @param: String filename "/Data/xxx.tsp"
-	 * @return: double[] 2D-array of double
+	 * @return: int[] 2D-array of int
 	 */
-	public static double[][] parse(String filename) throws FileNotFoundException {
+	public static int[][] parse(String filename) throws FileNotFoundException {
 		// Init file
 		File inputFile = new File(filename);
 		Scanner sc = new Scanner(inputFile);
@@ -33,8 +33,8 @@ class DataParser {
 		return parseNodesTo2DArray(nodeList, size);
 	}
 
-	private static double[][] parseNodesTo2DArray(double[] nodes, int size) {
-		double[][] nodesMap = new double[size][size];
+	private static int[][] parseNodesTo2DArray(double[] nodes, int size) {
+		int[][] nodesMap = new int[size][size];
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				nodesMap[i][j] = getEucDis(nodes[i * 2], nodes[i * 2 + 1], nodes[j * 2], nodes[j * 2 + 1]);
@@ -43,8 +43,8 @@ class DataParser {
 		return nodesMap;
 	}
 
-	private static double getEucDis(double x1, double y1, double x2, double y2) {
-		return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+	private static int getEucDis(double x1, double y1, double x2, double y2) {
+		return (int) Math.round(Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
 	}
 
 	private static int parseDimension(String line) {
