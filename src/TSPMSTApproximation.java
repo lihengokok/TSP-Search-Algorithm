@@ -116,7 +116,7 @@ public class TSPMSTApproximation {
      * @param outputPath output file
      */
     private void writeOutput(List<Integer> tsp, double[][] geoMap, String outputPath) {
-        double weight = getWeight(tsp, geoMap);
+        int weight = (int) getWeight(tsp, geoMap);
         PrintWriter output;
         try {
             output = new PrintWriter(outputPath, "UTF-8");
@@ -124,7 +124,7 @@ public class TSPMSTApproximation {
             for (int i = 1; i < tsp.size(); i++) {
                 int source = tsp.get(i - 1);
                 int target = tsp.get(i);
-                output.println(source + "\t" + target + "\t" + geoMap[source][target]);
+                output.println(source + "\t" + target + "\t" + (int) geoMap[source][target]);
             }
             System.out.println("Write finished");
             output.close();
@@ -151,11 +151,17 @@ public class TSPMSTApproximation {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        double[][] geoMap = DataParser.parse("../DATA/" + args[0] + ".tsp");
-        String outputPath = "./TSP-Search-Algorithm/results/" + args[0] + ".tour";
+        tring city = "UMissouri";
+        double[][] geoMap = DataParser.parse("../DATA/" + city + ".tsp");
+        String outputPath = "./TSP-Search-Algorithm/results/" + city + ".tour";
         TSPMSTApproximation tspMstApproximation = new TSPMSTApproximation();
+        double startDC = System.nanoTime();
         List[] mst = tspMstApproximation.getMST(geoMap);
         List<Integer> tsp = tspMstApproximation.getTsp(mst);
+        double finishDC = System.nanoTime();
+        double runningTimeDC = (finishDC - startDC) / 1000000000;
+        System.out.println(runningTimeDC);
+        System.out.println(tspMstApproximation.getWeight(tsp, geoMap));
         tspMstApproximation.writeOutput(tsp, geoMap, outputPath);
     }
 }
