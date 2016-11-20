@@ -151,7 +151,7 @@ public class TSPMSTApproximation {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        tring city = "UMissouri";
+        String city = "UMissouri";
         double[][] geoMap = DataParser.parse("../DATA/" + city + ".tsp");
         String outputPath = "./TSP-Search-Algorithm/results/" + city + ".tour";
         TSPMSTApproximation tspMstApproximation = new TSPMSTApproximation();
