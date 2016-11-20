@@ -1,10 +1,10 @@
-// Parse input data xxx.tsp into a 2D-array of double
+// Parse input data xxx.tsp into a 2D-array of int
 import java.util.Scanner;
 import java.io.*;
 class DataParser {
 	/**
 	 * @param: String filename "/Data/xxx.tsp"
-	 * @return: double[] 2D-array of double
+	 * @return: int[] 2D-array of int
 	 */
 	public static int[][] parse(String filename) throws FileNotFoundException {
 		// Init file
