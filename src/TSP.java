@@ -4,7 +4,6 @@ class TSP {
 	public static final double TEMPERATURE = 1000000.0;
 	public static final double COOLINGRATE = 0.001;
 	public static void main(String args[]) throws FileNotFoundException {
-		double[][] newMap = DataParser.parse("../DATA/Boston.tsp");
 		int[][] newMapInteger = DataParser.parse("../DATA/Boston.tsp");
 		int[][] newMap = DataParser.parse("./DATA/Boston.tsp");
 		if(args[0].equals("SA")) {
