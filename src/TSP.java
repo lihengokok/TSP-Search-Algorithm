@@ -2,9 +2,12 @@ import java.util.Scanner;
 import java.io.*;
 class TSP {
 	public static void main(String args[]) throws FileNotFoundException {
-		int[][] newMap = DataParser.parse("./DATA/Boston.tsp");
+		double[][] newMap = DataParser.parse("../DATA/Boston.tsp");
+		int[][] newMapInteger = DataParser.parse("../DATA/Boston.tsp");
+        /*TSPMSTApproximation test = new TSPMSTApproximation();
+        test.getTspMSTApproximation("Atlanta");*/
 	}
-	
+
 	//Approximation Algorithm: Nearest Neighbor
 	public static List<Integer> nearestNeighbor(int[][] graph) {
 		List<Integer> res = new ArrayList<>();
