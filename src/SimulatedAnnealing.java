@@ -69,37 +69,4 @@ class SimulatedAnnealing {
 		}
 		return ans;
 	}
-
-	private static int newDisAfterSwap(int[][] graph, int i, int j, int currentDis) {
-		if (i > 0 && i < graph.length - 1) {
-			// Remove two edgess
-			currentDis -= graph[i][i + 1];
-			currentDis -= graph[i - 1][i];
-			// Add two edges
-			currentDis += graph[j][i + 1];
-			currentDis += graph[i - 1][j];
-		} else if (i == 0) {
-			currentDis -= graph[i][i + 1];
-			currentDis += graph[j][i + 1];
-		} else {
-			currentDis -= graph[i - 1][i];
-			currentDis += graph[i - 1][j];
-		}
-
-		if (j > 0 && j < graph.length - 1) {
-			// Remove two edgess
-			currentDis -= graph[j][j + 1];
-			currentDis -= graph[j - 1][j];
-			// Add two edges
-			currentDis += graph[i][j + 1];
-			currentDis += graph[j- 1][i];
-		} else if (j == 0) {
-			currentDis -= graph[j][j + 1];
-			currentDis += graph[i][j + 1];
-		} else {
-			currentDis -= graph[j - 1][j];
-			currentDis += graph[j - 1][i];
-		}
-		return  currentDis;
-	}
 }
