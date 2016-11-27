@@ -1,11 +1,17 @@
-import java.util.Scanner;
+import java.util.*;
 import java.io.*;
 class TSP {
+	public static final double TEMPERATURE = 1000000.0;
+	public static final double COOLINGRATE = 0.001;
 	public static void main(String args[]) throws FileNotFoundException {
 		double[][] newMap = DataParser.parse("../DATA/Boston.tsp");
 		int[][] newMapInteger = DataParser.parse("../DATA/Boston.tsp");
-        /*TSPMSTApproximation test = new TSPMSTApproximation();
-        test.getTspMSTApproximation("Atlanta");*/
+		int[][] newMap = DataParser.parse("./DATA/Boston.tsp");
+		if(args[0].equals("SA")) {
+			SimulatedAnnealing SA = new SimulatedAnnealing();
+			int seed = Integer.valueOf(args[1]);
+			List<Integer> ans = SA.solve(newMapInteger, TEMPERATURE, COOLINGRATE, seed);
+		}
 	}
 
 	//Approximation Algorithm: Nearest Neighbor
@@ -28,3 +34,4 @@ class TSP {
 		return res;
 	}
 }
+
