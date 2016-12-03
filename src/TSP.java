@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -18,6 +19,27 @@ class TSP {
 	        System.out.println(city+" "+runningTimeDC+" "+getWeight(tsp, graph));
 			writeOutput(tsp,graph,"../results/"+city+"_Heur.tour");
 		}
+=======
+import java.util.*;
+import java.io.*;
+class TSP {
+	public static final double TEMPERATURE = 100000000.0;
+	public static final double COOLINGRATE = 0.001;
+	public static void main(String args[]) throws FileNotFoundException {
+    
+		double[][] geoMap = DataParser.parse("../DATA/" + args[2] + ".tsp");
+		int[][] newMap = DataParser.parseNodesTo2DIntArray(geoMap);
+		List<Integer> ans = new ArrayList<Integer>();
+		if (args[0].equals("SA")) {
+			int seed = Integer.valueOf(args[1]);
+			ans = SimulatedAnnealing.solve(newMap, TEMPERATURE, COOLINGRATE, seed);
+		}
+		if (args[0].equals("TO")) {
+			int seed = Integer.valueOf(args[1]);
+			ans = TwoOptExchange.solve(newMap, seed);
+		}
+		DataParser.writeOutput(ans, geoMap, args);
+>>>>>>> master
 	}
 
 	/**
@@ -43,6 +65,7 @@ class TSP {
         res.add(0);
 		return res;
 	}
+<<<<<<< HEAD
 
 	/**
      * write result into file
@@ -84,3 +107,7 @@ class TSP {
         return res;
     }
 }
+=======
+}
+
+>>>>>>> master
