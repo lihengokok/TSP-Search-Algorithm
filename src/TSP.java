@@ -2,21 +2,24 @@ import java.util.*;
 import java.io.*;
 class TSP {
 	public static final double TEMPERATURE = 100000000.0;
-	public static final double COOLINGRATE = 0.001;
+	public static final double COOLINGRATE = 0.000001;
 	public static void main(String args[]) throws FileNotFoundException {
     
 		double[][] geoMap = DataParser.parse("../DATA/" + args[2] + ".tsp");
 		int[][] newMap = DataParser.parseNodesTo2DIntArray(geoMap);
-		List<Integer> ans = new ArrayList<Integer>();
+		TSPAnswer newAns = new TSPAnswer();
 		if (args[0].equals("SA")) {
 			int seed = Integer.valueOf(args[1]);
-			ans = SimulatedAnnealing.solve(newMap, TEMPERATURE, COOLINGRATE, seed);
+			newAns = SimulatedAnnealing.solve(newMap, TEMPERATURE, COOLINGRATE, seed);
+			DataParser.writeTrace(newAns.trace, args);
 		}
 		if (args[0].equals("TO")) {
 			int seed = Integer.valueOf(args[1]);
-			ans = TwoOptExchange.solve(newMap, seed);
+			newAns = TwoOptExchange.solve(newMap, seed);
+			DataParser.writeTrace(newAns.trace, args);
 		}
-		DataParser.writeOutput(ans, geoMap, args);
+		DataParser.writeOutput(newAns.solution, newMap, args);
+
 	}
 
 	//Approximation Algorithm: Nearest Neighbor

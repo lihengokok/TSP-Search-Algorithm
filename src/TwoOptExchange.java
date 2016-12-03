@@ -1,11 +1,18 @@
 import java.util.Collections;
 import java.util.*;
+
+
+
+
 class TwoOptExchange {
-    public static List<Integer> solve(int[][] graph, int seed) {
+    public static TSPAnswer solve(int[][] graph, int seed) {
         List<Integer> solution = generateRandomSolution(graph, seed);
         int parentBestDis = getDis(graph, solution);
         System.out.println(parentBestDis);
         Boolean updated = true;
+        final long start = System.currentTimeMillis();
+        List<Long> traceList = new ArrayList<Long>();
+        int sb = 0;
         while (updated) {
             updated = false;
             int iterBestDis = parentBestDis;
@@ -33,9 +40,23 @@ class TwoOptExchange {
                 updated = true;
                 parentBestDis = iterBestDis;
                 solution = iterBestSolution;
+                long timeStamp = System.currentTimeMillis() - start;
+                traceList.add(timeStamp);
+                traceList.add((long) iterBestDis);
+               
+                if (655454 * 1.1 > parentBestDis && sb == 0) {
+                    System.out.println("---------");
+                    System.out.println((double) (System.currentTimeMillis() - start) / 1000);
+                    sb = 1;
+                }
             }
         }
-        return solution;
+        TSPAnswer myAns = new TSPAnswer();
+        solution.add(solution.get(0));
+        myAns.solution = ((List<Integer>) ((ArrayList) solution).clone());
+        myAns.trace = traceList;
+        System.out.println((double) (System.currentTimeMillis() - start) / 1000);
+        return myAns;
     }
 
     private static List<Integer> generateRandomSolution(int[][] graph, long seed) {
@@ -54,6 +75,7 @@ class TwoOptExchange {
         for (int i = 0; i < solution.size() - 1; i++) {
             ans += graph[solution.get(i)][solution.get(i + 1)];
         }
+        ans += graph[solution.get(solution.size() - 1)][0];
         return ans;
     }
 }
