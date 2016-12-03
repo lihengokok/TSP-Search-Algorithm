@@ -61,46 +61,5 @@ class TSP {
         res.add(0);
 		return res;
 	}
-
-
-	/**
-     * write result into file
-     * @param tsp tsp traversal of a given graph
-     * @param geoMap origianl graph
-     * @param outputPath output file
-     */
-    private static void writeOutput(List<Integer> tsp, int[][] geoMap, String outputPath) {
-        int weight = getWeight(tsp, geoMap);
-        PrintWriter output;
-        try {
-            output = new PrintWriter(outputPath, "UTF-8");
-            output.println(weight);
-            for (int i = 1; i < tsp.size(); i++) {
-                int source = tsp.get(i - 1);
-                int target = tsp.get(i);
-                output.println(source + "\t" + target + "\t" + geoMap[source][target]);
-            }
-            output.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * calculate the weight of a given tsp
-     * @param tsp tsp traversal of a given graph
-     * @param geoMap origianl graph
-     * @return the weight of a given tsp
-     */
-    private static int getWeight(List<Integer> tsp, int[][] geoMap) {
-        int numOfTrip = tsp.size();
-        int res = 0;
-        for (int i = 1; i < numOfTrip; i++) {
-            res += geoMap[tsp.get(i - 1)][tsp.get(i)];
-        }
-        return res;
-    }
 }
 
