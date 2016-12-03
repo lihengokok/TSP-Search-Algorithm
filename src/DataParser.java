@@ -70,9 +70,15 @@ class DataParser {
      * @param geoMap origianl graph
      * @param outputPath output file
      */
-    public static void writeOutput(List<Integer> tsp, double[][] geoMap, String name) {
+    public static void writeOutput(List<Integer> tsp, double[][] geoMap, String args[]) {
         int weight = (int) getWeight(tsp, geoMap);
         PrintWriter output;
+        String name = "ERROR";
+        if (args.length == 3) {
+            name = args[0] + "_" + args[1] + "_" + args[2];
+        } else {
+            name = args[0] + "_" + args[1];
+        }
         String outputPath = new String("../Results/" + name + ".tour");
         try {
             output = new PrintWriter(outputPath, "UTF-8");
