@@ -8,11 +8,15 @@ class TSP {
 		double[][] geoMap = DataParser.parse("../DATA/" + args[2] + ".tsp");
 		int[][] newMap = DataParser.parseNodesTo2DIntArray(geoMap);
 		List<Integer> ans = new ArrayList<Integer>();
-		if(args[0].equals("SA")) {
+		if (args[0].equals("SA")) {
 			int seed = Integer.valueOf(args[1]);
 			ans = SimulatedAnnealing.solve(newMap, TEMPERATURE, COOLINGRATE, seed);
 		}
-		DataParser.writeOutput(ans, geoMap, args[2]);
+		if (args[0].equals("TO")) {
+			int seed = Integer.valueOf(args[1]);
+			ans = TwoOptExchange.solve(newMap, seed);
+		}
+		DataParser.writeOutput(ans, geoMap, args);
 	}
 
 	//Approximation Algorithm: Nearest Neighbor
