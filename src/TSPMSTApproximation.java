@@ -37,6 +37,24 @@ public class TSPMSTApproximation {
 
 
     /**
+     * Generates a tour of a completion connected graph using the
+     * MST-TSP 2-competitive approximation algorithm. Called by Main.
+     *
+     * @param geoMap the city you find to find a tsp traversal
+     *
+     */
+    public List<Integer> getTspMSTApproximation(double[][] geoMap) {
+        double startDC = System.nanoTime();
+        List[] mst = getMST(geoMap);
+        List<Integer> tsp = getTsp(mst);
+        double finishDC = System.nanoTime();
+        double runningTimeDC = (finishDC - startDC) / 1000000000;
+        System.out.println(runningTimeDC);
+        return tsp;
+    }
+
+
+    /**
      * get the minimum spanning tree of a given graph
      * @param geoMap store cities' information
      * @return mst minmium spaning tree

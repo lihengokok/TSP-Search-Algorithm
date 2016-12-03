@@ -23,19 +23,16 @@ class TSP {
 			ans = TwoOptExchange.solve(newMap, seed);
 		}
 		if (args[0].equals("NN")) {
-			String[] cities = {"Atlanta","Boston","Champaign","Cincinnati","Denver","NYC","Philadelphia","Roanoke","SanFrancisco","Toronto","UkansasState","UMissouri"};
-
-			for(String city : cities) {
-				double startDC = System.nanoTime();
-				double[][] rowGraph = DataParser.parse("../DATA/"+city+".tsp");
-				int[][] graph = DataParser.parseNodesTo2DIntArray(rowGraph);
-				List<Integer> tsp = nearestNeighbor(graph);
-				double finishDC = System.nanoTime();
-				double runningTimeDC = (finishDC - startDC) / 1000000000;
-		        System.out.println(city+" "+runningTimeDC+" "+getWeight(tsp, graph));
-				writeOutput(tsp,graph,"../results/"+city+"_Heur.tour");
-			}
-
+			double startDC = System.nanoTime();
+			ans = nearestNeighbor(newMap);
+			double finishDC = System.nanoTime();
+			double runningTimeDC = (finishDC - startDC) / 1000000000;
+		    System.out.println(city+" "+runningTimeDC+" "+getWeight(tsp, graph));
+			// writeOutput(tsp,graph,"../results/"+city+"_Heur.tour");
+		}
+		if (args[0].equals("MSTApprox")) {
+			TSPMSTApproximation tspMst = new TSPMSTApproximation();
+			ans = tspMst.getTspMSTApproximation(geoMap);
 		}
 		DataParser.writeOutput(ans, geoMap, args);
 
