@@ -27,7 +27,7 @@ class TSP {
 			ans = nearestNeighbor(newMap);
 			double finishDC = System.nanoTime();
 			double runningTimeDC = (finishDC - startDC) / 1000000000;
-		    System.out.println(city+" "+runningTimeDC+" "+getWeight(tsp, graph));
+		    System.out.println(runningTimeDC);
 			// writeOutput(tsp,graph,"../results/"+city+"_Heur.tour");
 		}
 		if (args[0].equals("MSTApprox")) {
