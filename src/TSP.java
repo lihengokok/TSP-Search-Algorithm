@@ -1,27 +1,11 @@
-<<<<<<< HEAD
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
-
-class TSP {
-
-	public static void main(String[] args) throws FileNotFoundException {
-		String[] cities = {"Atlanta","Boston","Champaign","Cincinnati","Denver","NYC","Philadelphia","Roanoke","SanFrancisco","Toronto","UkansasState","UMissouri"};
-
-		for(String city : cities) {
-			double startDC = System.nanoTime();
-			int[][] graph = DataParser.parse("../DATA/"+city+".tsp");
-			List<Integer> tsp = nearestNeighbor(graph);
-			double finishDC = System.nanoTime();
-			double runningTimeDC = (finishDC - startDC) / 1000000000;
-	        System.out.println(city+" "+runningTimeDC+" "+getWeight(tsp, graph));
-			writeOutput(tsp,graph,"../results/"+city+"_Heur.tour");
-		}
-=======
-import java.util.*;
 import java.io.*;
+
+
 class TSP {
 	public static final double TEMPERATURE = 100000000.0;
 	public static final double COOLINGRATE = 0.001;
@@ -38,8 +22,23 @@ class TSP {
 			int seed = Integer.valueOf(args[1]);
 			ans = TwoOptExchange.solve(newMap, seed);
 		}
+		if (args[0].equals("NN")) {
+			String[] cities = {"Atlanta","Boston","Champaign","Cincinnati","Denver","NYC","Philadelphia","Roanoke","SanFrancisco","Toronto","UkansasState","UMissouri"};
+
+			for(String city : cities) {
+				double startDC = System.nanoTime();
+				double[][] rowGraph = DataParser.parse("../DATA/"+city+".tsp");
+				int[][] graph = DataParser.parseNodesTo2DIntArray(rowGraph);
+				List<Integer> tsp = nearestNeighbor(graph);
+				double finishDC = System.nanoTime();
+				double runningTimeDC = (finishDC - startDC) / 1000000000;
+		        System.out.println(city+" "+runningTimeDC+" "+getWeight(tsp, graph));
+				writeOutput(tsp,graph,"../results/"+city+"_Heur.tour");
+			}
+
+		}
 		DataParser.writeOutput(ans, geoMap, args);
->>>>>>> master
+
 	}
 
 	/**
@@ -65,7 +64,7 @@ class TSP {
         res.add(0);
 		return res;
 	}
-<<<<<<< HEAD
+
 
 	/**
      * write result into file
@@ -107,7 +106,4 @@ class TSP {
         return res;
     }
 }
-=======
-}
 
->>>>>>> master
