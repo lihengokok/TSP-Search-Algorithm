@@ -75,9 +75,9 @@ class DataParser {
         PrintWriter output;
         String name = "ERROR";
         if (args.length == 2) {
-        	name = args[0] + "_" + args[1] + "_0_0.sol";
+        	name = args[0] + "_" + args[1] + "_0_0";
         } else if (args.length == 3) {
-        	name = args[0] + "_" + args[1] + "_" + args[2] + "_0.sol";
+        	name = args[0] + "_" + args[1] + "_" + args[2] + "_0";
         } else {
 	        name = args[0] + "_" + args[1] + "_" + args[2] + "_" + args[3];
 	    }
