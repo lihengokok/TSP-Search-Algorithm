@@ -9,11 +9,12 @@ import java.io.*;
 
 class TSP {
 	public static final double TEMPERATURE = 100000000.0;
-	public static final double COOLINGRATE = 0.001;
+	public static final double COOLINGRATE = 0.000001;
 	public static void main(String args[]) throws FileNotFoundException {
     
 		double[][] geoMap = DataParser.parse("../DATA/" + args[0] + ".tsp");
 		int[][] newMap = DataParser.parseNodesTo2DIntArray(geoMap);
+<<<<<<< HEAD
 		List<Integer> ans = new ArrayList<Integer>();
 		if (args[1].equals("SA")) {
 			int seed = Integer.valueOf(args[3]);
@@ -22,6 +23,20 @@ class TSP {
 		if (args[1].equals("TO")) {
 			int seed = Integer.valueOf(args[3]);
 			ans = TwoOptExchange.solve(newMap, seed);
+=======
+		TSPAnswer newAns = new TSPAnswer();
+		if (args[0].equals("SA")) {
+			int seed = Integer.valueOf(args[1]);
+			newAns = SimulatedAnnealing.solve(newMap, TEMPERATURE, COOLINGRATE, seed);
+			DataParser.writeTrace(newAns.trace, args);
+			DataParser.writeOutput(newAns.solution, newMap, args);
+		}
+		if (args[0].equals("TO")) {
+			int seed = Integer.valueOf(args[1]);
+			newAns = TwoOptExchange.solve(newMap, seed);
+			DataParser.writeTrace(newAns.trace, args);
+			DataParser.writeOutput(newAns.solution, newMap, args);
+>>>>>>> origin/master
 		}
 		if (args[1].equals("NN")) {
 			double startDC = System.nanoTime();

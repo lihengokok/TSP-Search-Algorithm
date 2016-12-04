@@ -70,8 +70,8 @@ class DataParser {
      * @param geoMap origianl graph
      * @param outputPath output file
      */
-    public static void writeOutput(List<Integer> tsp, double[][] geoMap, String args[]) {
-        int weight = (int) getWeight(tsp, geoMap);
+    public static void writeOutput(List<Integer> tsp, int[][] geoMap, String args[]) {
+        int weight = getWeight(tsp, geoMap);
         PrintWriter output;
         String name = "ERROR";
         name = args[0] + "_" + args[1] + "_" + args[2] + "_" + args[3];
@@ -93,18 +93,43 @@ class DataParser {
         }
     }
 
+    public static void writeTrace(List<Long> trace, String args[]) {
+        PrintWriter output;
+        String name = "ERROR";
+        if (args.length == 3) {
+            name = args[0] + "_" + args[1] + "_" + args[2];
+        } else {
+            name = args[0] + "_" + args[1];
+        }
+        String outputPath = new String("../Results/" + name + ".trace");
+        try {
+            output = new PrintWriter(outputPath, "UTF-8");
+            for (int i = 0; i < trace.size(); i+=2) {
+                double time = (double) trace.get(i) / 1000;
+                long quality = trace.get(i + 1);
+                output.println(time + "\t" + quality + "\t");
+            }
+            System.out.println("Write finished");
+            output.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * calculate the weight of a given tsp
      * @param tsp tsp traversal of a given graph
      * @param geoMap origianl graph
      * @return the weight of a given tsp
      */
-    private static double getWeight(List<Integer> tsp, double[][] geoMap) {
-        int numOfTrip = tsp.size();
-        double res = 0;
-        for (int i = 1; i < numOfTrip; i++) {
-            res += geoMap[tsp.get(i - 1)][tsp.get(i)];
+    private static int getWeight(List<Integer> tsp, int[][] geoMap) {
+        int res = 0;
+        for (int i = 0; i < tsp.size() - 1; i++) {
+            res += geoMap[tsp.get(i)][tsp.get(i + 1)];
         }
+        System.out.println(res);
         return res;
     }
 }
