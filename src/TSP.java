@@ -10,33 +10,30 @@ import java.io.*;
 class TSP {
 	public static final double TEMPERATURE = 100000000.0;
 	public static final double COOLINGRATE = 0.000001;
-	public static void main(String args[]) throws FileNotFoundException {
-    
+	public static void main(String args[]) throws Exception {
+		if (args.length < 2) {
+        	throw new Exception("Your input should contains at least 2 arguments");
+        }
+    	if (args[1].equals("SA") || args[1].equals("TO")) {
+    		if (args.length < 4) {
+    			throw new Exception("Your input should contains 4 arguments");
+    		}
+    	}
 		double[][] geoMap = DataParser.parse("../DATA/" + args[0] + ".tsp");
 		int[][] newMap = DataParser.parseNodesTo2DIntArray(geoMap);
-<<<<<<< HEAD
 		List<Integer> ans = new ArrayList<Integer>();
+		TSPAnswer newAns = new TSPAnswer();
 		if (args[1].equals("SA")) {
 			int seed = Integer.valueOf(args[3]);
-			ans = SimulatedAnnealing.solve(newMap, TEMPERATURE, COOLINGRATE, seed);
-		}
-		if (args[1].equals("TO")) {
-			int seed = Integer.valueOf(args[3]);
-			ans = TwoOptExchange.solve(newMap, seed);
-=======
-		TSPAnswer newAns = new TSPAnswer();
-		if (args[0].equals("SA")) {
-			int seed = Integer.valueOf(args[1]);
 			newAns = SimulatedAnnealing.solve(newMap, TEMPERATURE, COOLINGRATE, seed);
 			DataParser.writeTrace(newAns.trace, args);
 			DataParser.writeOutput(newAns.solution, newMap, args);
 		}
-		if (args[0].equals("TO")) {
-			int seed = Integer.valueOf(args[1]);
+		if (args[1].equals("TO")) {
+			int seed = Integer.valueOf(args[3]);
 			newAns = TwoOptExchange.solve(newMap, seed);
 			DataParser.writeTrace(newAns.trace, args);
 			DataParser.writeOutput(newAns.solution, newMap, args);
->>>>>>> origin/master
 		}
 		if (args[1].equals("NN")) {
 			double startDC = System.nanoTime();
@@ -44,13 +41,13 @@ class TSP {
 			double finishDC = System.nanoTime();
 			double runningTimeDC = (finishDC - startDC) / 1000000000;
 		    System.out.println(runningTimeDC);
-		    DataParser.writeOutput(ans, geoMap, args);
+		    DataParser.writeOutput(ans, newMap, args);
 			// writeOutput(tsp,graph,"../results/"+city+"_Heur.tour");
 		}
 		if (args[1].equals("MSTApprox")) {
 			TSPMSTApproximation tspMst = new TSPMSTApproximation();
 			ans = tspMst.getTspMSTApproximation(geoMap);
-			DataParser.writeOutput(ans, geoMap, args);
+			DataParser.writeOutput(ans, newMap, args);
 		}
 		// for branch and bound:
         if (args[1].equals("BnB")) {

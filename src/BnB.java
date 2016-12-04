@@ -24,8 +24,8 @@ public class BnB {
 
             String[] name = fileName.split("\\.");
             PrintWriter outputSol, outputTrace;
-            String outputFileSol = "../output/" + name[0] + "_BnB_" + timeLimit + ".sol";
-            String outputFileTrace = "../output/" + name[0] + "_BnB_" + timeLimit + ".trace";
+            String outputFileSol = "../Results/" + name[0] + "_BnB_" + timeLimit + ".sol";
+            String outputFileTrace = "../Results/" + name[0] + "_BnB_" + timeLimit + ".trace";
             PrintWriter outputDP, outputDC;
             outputSol = new PrintWriter(outputFileSol, "UTF-8");
             outputTrace = new PrintWriter(outputFileTrace, "UTF-8");

@@ -74,7 +74,13 @@ class DataParser {
         int weight = getWeight(tsp, geoMap);
         PrintWriter output;
         String name = "ERROR";
-        name = args[0] + "_" + args[1] + "_" + args[2] + "_" + args[3];
+        if (args.length == 2) {
+        	name = args[0] + "_" + args[1] + "_0_0.sol";
+        } else if (args.length == 3) {
+        	name = args[0] + "_" + args[1] + "_" + args[2] + "_0.sol";
+        } else {
+	        name = args[0] + "_" + args[1] + "_" + args[2] + "_" + args[3];
+	    }
         String outputPath = new String("../Results/" + name + ".sol");
         try {
             output = new PrintWriter(outputPath, "UTF-8");
