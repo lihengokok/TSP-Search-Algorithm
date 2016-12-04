@@ -5,36 +5,46 @@ import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.io.*;
 
+// args[0] city, args[1] algorithm, args[2] cutoff time, args[3] seed
 
 class TSP {
 	public static final double TEMPERATURE = 100000000.0;
 	public static final double COOLINGRATE = 0.001;
 	public static void main(String args[]) throws FileNotFoundException {
     
-		double[][] geoMap = DataParser.parse("../DATA/" + args[2] + ".tsp");
+		double[][] geoMap = DataParser.parse("../DATA/" + args[0] + ".tsp");
 		int[][] newMap = DataParser.parseNodesTo2DIntArray(geoMap);
 		List<Integer> ans = new ArrayList<Integer>();
-		if (args[0].equals("SA")) {
-			int seed = Integer.valueOf(args[1]);
+		if (args[1].equals("SA")) {
+			int seed = Integer.valueOf(args[3]);
 			ans = SimulatedAnnealing.solve(newMap, TEMPERATURE, COOLINGRATE, seed);
 		}
-		if (args[0].equals("TO")) {
-			int seed = Integer.valueOf(args[1]);
+		if (args[1].equals("TO")) {
+			int seed = Integer.valueOf(args[3]);
 			ans = TwoOptExchange.solve(newMap, seed);
 		}
-		if (args[0].equals("NN")) {
+		if (args[1].equals("NN")) {
 			double startDC = System.nanoTime();
 			ans = nearestNeighbor(newMap);
 			double finishDC = System.nanoTime();
 			double runningTimeDC = (finishDC - startDC) / 1000000000;
 		    System.out.println(runningTimeDC);
+		    DataParser.writeOutput(ans, geoMap, args);
 			// writeOutput(tsp,graph,"../results/"+city+"_Heur.tour");
 		}
-		if (args[0].equals("MSTApprox")) {
+		if (args[1].equals("MSTApprox")) {
 			TSPMSTApproximation tspMst = new TSPMSTApproximation();
 			ans = tspMst.getTspMSTApproximation(geoMap);
+			DataParser.writeOutput(ans, geoMap, args);
 		}
-		DataParser.writeOutput(ans, geoMap, args);
+		// for branch and bound:
+        if (args[1].equals("BnB")) {
+            int timeLimit = 600; // 10 minutes
+            // check if a time limit is given
+            if (args[2] != null) timeLimit = Integer.valueOf(args[2]);
+            BnB bnb = new BnB();
+            bnb.getBnB(args[0], newMap, timeLimit);
+        }
 
 	}
 
