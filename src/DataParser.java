@@ -74,14 +74,12 @@ class DataParser {
         int weight = getWeight(tsp, geoMap);
         PrintWriter output;
         String name = "ERROR";
-        if (args.length == 2) {
-        	name = args[0] + "_" + args[1] + "_0_0";
-        } else if (args.length == 3) {
-        	name = args[0] + "_" + args[1] + "_" + args[2] + "_0";
+        if (args[1].equals("NN") || args[1].equals("MSTApprox")) {
+            name = args[0] + "_" + args[1];
         } else {
-	        name = args[0] + "_" + args[1] + "_" + args[2] + "_" + args[3];
-	    }
-        String outputPath = new String("../Results/" + name + ".sol");
+            name = args[0] + "_" + args[1] + "_" + args[2] + "_" + args[3];
+        }
+        String outputPath = new String("../output/" + name + ".sol");
         try {
             output = new PrintWriter(outputPath, "UTF-8");
             output.println(weight);
@@ -102,18 +100,23 @@ class DataParser {
     public static void writeTrace(List<Long> trace, String args[]) {
         PrintWriter output;
         String name = "ERROR";
-        if (args.length == 3) {
-            name = args[0] + "_" + args[1] + "_" + args[2];
-        } else {
+        if (args[1].equals("NN") || args[1].equals("MSTApprox")) {
             name = args[0] + "_" + args[1];
+        } else {
+            name = args[0] + "_" + args[1] + "_" + args[2] + "_" + args[3];
         }
-        String outputPath = new String("../Results/" + name + ".trace");
+        String outputPath = new String("../output/" + name + ".trace");
         try {
             output = new PrintWriter(outputPath, "UTF-8");
             for (int i = 0; i < trace.size(); i+=2) {
-                double time = (double) trace.get(i) / 1000;
+                double time = (double) trace.get(i);
+                if (args[1].equals("NN") || args[1].equals("MSTApprox")) {
+                     time = time / 10000;
+                } else {
+                    time = time / 1000;
+                }
                 long quality = trace.get(i + 1);
-                output.println(time + "\t" + quality + "\t");
+                output.println(time + "," + quality + "\t");
             }
             System.out.println("Write finished");
             output.close();
@@ -130,7 +133,7 @@ class DataParser {
      * @param geoMap origianl graph
      * @return the weight of a given tsp
      */
-    private static int getWeight(List<Integer> tsp, int[][] geoMap) {
+    public static int getWeight(List<Integer> tsp, int[][] geoMap) {
         int res = 0;
         for (int i = 0; i < tsp.size() - 1; i++) {
             res += geoMap[tsp.get(i)][tsp.get(i + 1)];

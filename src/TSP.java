@@ -39,15 +39,20 @@ class TSP {
 			double startDC = System.nanoTime();
 			ans = nearestNeighbor(newMap);
 			double finishDC = System.nanoTime();
-			double runningTimeDC = (finishDC - startDC) / 1000000000;
+			double runningTimeDC = (finishDC - startDC) / 100000;
 		    System.out.println(runningTimeDC);
+		    List<Long> traceList = new ArrayList<>();
+		    traceList.add((long) runningTimeDC);
+		    traceList.add((long) DataParser.getWeight(ans, newMap));
 		    DataParser.writeOutput(ans, newMap, args);
+		    DataParser.writeTrace(traceList, args);
 			// writeOutput(tsp,graph,"../results/"+city+"_Heur.tour");
 		}
 		if (args[1].equals("MSTApprox")) {
 			TSPMSTApproximation tspMst = new TSPMSTApproximation();
-			ans = tspMst.getTspMSTApproximation(geoMap);
-			DataParser.writeOutput(ans, newMap, args);
+			newAns = tspMst.getTspMSTApproximation(geoMap);
+			DataParser.writeTrace(newAns.trace, args);
+			DataParser.writeOutput(newAns.solution, newMap, args);
 		}
 		// for branch and bound:
         if (args[1].equals("BnB")) {

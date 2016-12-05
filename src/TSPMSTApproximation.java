@@ -43,14 +43,20 @@ public class TSPMSTApproximation {
      * @param geoMap the city you find to find a tsp traversal
      *
      */
-    public List<Integer> getTspMSTApproximation(double[][] geoMap) {
+    public TSPAnswer getTspMSTApproximation(double[][] geoMap) {
         double startDC = System.nanoTime();
         List[] mst = getMST(geoMap);
         List<Integer> tsp = getTsp(mst);
         double finishDC = System.nanoTime();
-        double runningTimeDC = (finishDC - startDC) / 1000000000;
+        double runningTimeDC = (finishDC - startDC) / 100000;
         System.out.println(runningTimeDC);
-        return tsp;
+        List<Long> trace = new ArrayList<>();
+        trace.add((long) runningTimeDC);
+        trace.add((long) getWeight(tsp, geoMap));
+        TSPAnswer res = new TSPAnswer();
+        res.solution = tsp;
+        res.trace = trace;
+        return res;
     }
 
 
