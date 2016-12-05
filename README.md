@@ -7,7 +7,6 @@
 &emsp;&emsp;\output  
 &emsp;&emsp;&emsp;&emsp;\output files.   
 &emsp;&emsp;\src  
-&emsp;&emsp;&emsp;&emsp;\BnB.java  
 &emsp;&emsp;&emsp;&emsp;\uf  
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\UF.java  
 &emsp;&emsp;&emsp;&emsp;\TwoOptExchange.java  
